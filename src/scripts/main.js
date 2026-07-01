@@ -1,30 +1,24 @@
 'use strict';
 
 // write code here
-document.querySelectorAll('form').forEach((form) => {
-  form.querySelectorAll('input').forEach((input) => {
-    const label = document.createElement('label');
+const form = document.querySelector('form');
+const inputs = form.querySelectorAll('input');
 
-    label.className = 'field-label';
-    label.setAttribute('for', input.id);
+inputs.forEach((input) => {
+  const label = document.createElement('label');
 
-    // Отримуємо назву поля без конфлікту з глобальним name
-    const fieldName = input.name;
+  label.className = 'field-label';
+  label.setAttribute('for', input.id);
 
-    // Форматуємо текст: firstName -> First Name
-    let displayName = fieldName.replace(/([A-Z])/g, ' $1').trim();
+  const fieldName = input.name;
+  let displayName = fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
 
-    displayName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
+  if (input.type === 'password') {
+    displayName = 'Password';
+  }
 
-    // Для пароля використовуємо стандартну назву
-    if (input.type === 'password') {
-      displayName = 'Password';
-    }
+  label.textContent = displayName;
+  input.placeholder = displayName;
 
-    label.textContent = displayName;
-    input.placeholder = displayName;
-
-    // Вставляємо мітку перед полем
-    input.parentNode.insertBefore(label, input);
-  });
+  input.parentElement.insertBefore(label, input);
 });
