@@ -11,11 +11,9 @@ inputs.forEach((input) => {
   label.setAttribute('for', input.id);
 
   const fieldName = input.name;
-  let displayName = fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
+  let displayName = fieldName.replace(/([A-Z])/g, ' $1').trim();
 
-  if (input.type === 'password') {
-    displayName = 'Password';
-  }
+  displayName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
 
   label.textContent = displayName;
   input.placeholder = displayName;
